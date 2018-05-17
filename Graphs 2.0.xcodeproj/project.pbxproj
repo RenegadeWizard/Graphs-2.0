@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E2D83A3120AD6C8A00BF0F09 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2D83A3020AD6C8A00BF0F09 /* main.cpp */; };
+		E2D83A3F20AD6F7E00BF0F09 /* AdjacencyList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2D83A3D20AD6F7E00BF0F09 /* AdjacencyList.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		E2D83A2D20AD6C8A00BF0F09 /* Graphs 2.0 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Graphs 2.0"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2D83A3020AD6C8A00BF0F09 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E2D83A3D20AD6F7E00BF0F09 /* AdjacencyList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AdjacencyList.cpp; sourceTree = "<group>"; };
+		E2D83A3E20AD6F7E00BF0F09 /* AdjacencyList.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AdjacencyList.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				E2D83A3020AD6C8A00BF0F09 /* main.cpp */,
+				E2D83A3D20AD6F7E00BF0F09 /* AdjacencyList.cpp */,
+				E2D83A3E20AD6F7E00BF0F09 /* AdjacencyList.hpp */,
 			);
 			path = "Graphs 2.0";
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2D83A3F20AD6F7E00BF0F09 /* AdjacencyList.cpp in Sources */,
 				E2D83A3120AD6C8A00BF0F09 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
