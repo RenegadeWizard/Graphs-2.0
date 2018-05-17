@@ -25,10 +25,10 @@
 //    inicjalize(source.tab, source.n, which);
 //}
 //
-//AdjacencyList::AdjacencyList(AdjacencyMatrix *source, int which)
-//{
-//    inicjalize(source->tab, source->n, which);
-//}
+AdjacencyList::AdjacencyList(AdjacencyMatrix *source, int which)
+{
+    inicjalize(source->tab, source->n, which);
+}
 
 AdjacencyList::AdjacencyList(int **tab, int _size, int which)
 {
@@ -186,11 +186,42 @@ void AdjacencyList::sortBFS()
     delete sorted;
 }
 
+std::list<int>::iterator AdjacencyList::firstOnTheList(int whichList)
+{
+	return lists[whichList].begin();;
+}
+
+std::list<int>::iterator AdjacencyList::lastOnTheList(int whichList)
+{
+	return lists[whichList].end();;
+}
+
+std::list<int>::iterator AdjacencyList::nextOnTheList(int whichList) {
+	//intialisation
+	static bool firstExecution = true;
+	static std::list<int>::iterator* pointers = new std::list<int>::iterator[size];
+	if (firstExecution) {
+		for (int i = 0; i < size; i++)
+			 pointers[i] = lists[i].begin();
+		firstExecution = false;
+	}
+	//actual function
+	if (pointers[whichList] != lists[whichList].end()) 
+		return pointers[whichList]++;
+	pointers[whichList] = lists[whichList].begin();
+	pointers[whichList]++;
+	return lists[whichList].end();
+}
+
 void AdjacencyList::Euler(){
     return;
 }
 
-void AdjacencyList::Hamilton(){
+void AdjacencyList::Hamilton(int i){
+	static int* visited = new int[size];
+	visited[i];
+	for(auto succesor : lists[i])
+		
     return;
 }
 

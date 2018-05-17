@@ -22,7 +22,7 @@
 
 #include <iostream>
 #include <list>
-//#include "AdjacencyMatrix.hpp"
+#include "AdjacencyMatrix.hpp"
 
 class AdjacencyList {
     friend class GraphMatrix;
@@ -37,7 +37,7 @@ private:
 protected:
 public:
 //    AdjacencyList(AdjacencyMatrix source, int which);
-//    AdjacencyList(AdjacencyMatrix * source, int which);
+    AdjacencyList(AdjacencyMatrix * source, int which);
     AdjacencyList(int **tab, int _size, int which);
     void inicjalize(int ** tab, int _size, int which);
     AdjacencyList(int tab[6][6], int _size, int which);
@@ -48,8 +48,13 @@ public:
     void DFS(int i, int &idx);
     void sortDFS();
     void sortBFS();
-    
-    void Hamilton();
+
+	std::list<int>::iterator firstOnTheList(int whichList);
+	std::list<int>::iterator lastOnTheList(int whichList);
+
+	std::list<int>::iterator nextOnTheList(int whichList);
+
+    void Hamilton(int i);
     void Euler();
     
     int type;
