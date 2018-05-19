@@ -27,41 +27,51 @@ int main(int argc, const char * argv[]) {
 //    dane.open(argv[2],std::ios_base::in);
 //    wynik.open(argv[3],std::ios_base::app);
     
-//    int tab[] = {0,1,2,3,4,5,6,0,1,3,6,1,4,0,2,4};
+    int tab[] = {0,1,2,3,4,5,6,0,1,3,6,1,4,0,2,4};
     
-    int **tab = new int*[7];
+//    int **tab = new int*[7];
+//
+//    int arr[7][7] = {
+//        0,1,1,0,1,0,1,
+//        1,0,1,1,0,0,1,
+//        1,1,0,1,1,0,0,
+//        0,1,1,0,1,0,1,
+//        1,0,1,1,0,1,0,
+//        0,0,0,0,1,0,1,
+//        1,1,0,1,0,1,0
+//    };
+//
+//    for(int i = 0;i<7;i++)
+//        tab[i] = new int[7];
+//    for(int i=0;i<7;i++)
+//        for(int j=0;j<7;j++)
+//            tab[i][j] = arr[i][j];
     
-    int arr[7][7] = {
-        0,1,1,0,1,0,1,
-        1,0,1,1,0,0,1,
-        1,1,0,1,1,0,0,
-        0,1,1,0,1,0,1,
-        1,0,1,1,0,1,0,
-        0,0,0,0,1,0,1,
-        1,1,0,1,0,1,0
-    };
-    
-    for(int i = 0;i<7;i++)
-        tab[i] = new int[7];
-    for(int i=0;i<7;i++)
-        for(int j=0;j<7;j++)
-            tab[i][j] = arr[i][j];
     
     
+    int size_of_tab = sizeof(tab)/sizeof(*tab);
     
-//    int size_of_tab = sizeof(tab)/sizeof(*tab);
+    AdjacencyList lista(tab,size_of_tab,7);
     
-    AdjacencyList lista(tab,7,0);
-
-    
+//    std::cout<<"lista[0]: "<<lista.getv(lista.nextOnTheList(0))<<"\n";
+//    lista.print_list();
+//    lista.firstOnTheList(0);
+//    lista.print_list();
+//    lista.lastOnTheList(0);
+//    lista.print_list();
+//    lista.nextOnTheList(0);
+//    lista.print_list();
     
     switch(number){
         case 0:
             std::cout<<"Euler\n";
             lista.Euler(0);
+            std::cout<<"\n";
             break;
         case 1:
             std::cout<<"Hamilton\n";
+            lista.Hamilton(0);
+            std::cout<<"\n";
             break;
         case 2:
             std::cout<<"Part B\n";

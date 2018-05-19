@@ -20,11 +20,7 @@ def staly(ile):
 
 def los_bez_pow(ile):
     a = [i+1 for i in range(ile)]
-    for i in range(int(ile)):
-        r1 = random.randrange(ile)
-        r2 = random.randrange(ile)
-        a[r1],a[r2] = a[r2],a[r1]
-    return a
+    return shuffle(a)
 
 def shuffle(tab):
     for i in range(len(tab)):
@@ -48,10 +44,6 @@ def Main():
             f.write(a+'\n')
             print('Koniec: ',ile,' : ',len(a.split(' ')))
 
-# def check_if(tab):
-#     for i in tab:
-#         if tab.count(i) > 1:
-#             print("HALOOOOO: ",i)
 
 if __name__=="__main__":
     Main()

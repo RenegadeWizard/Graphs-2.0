@@ -58,13 +58,14 @@ void AdjacencyList::inicjalize(int **tab, int _size, int which)
         }
     }
     
-    for (int i = 0; i < size; i++) {
-        std::cout << i << " -> ";
-        for (auto elem : lists[i]) {
-            std::cout << elem << " -> ";
-        }
-        std::cout << ".\n";
-    }
+//    for (int i = 0; i < size; i++) {
+//        std::cout << i << " -> ";
+//        for (auto elem : lists[i]) {
+//            std::cout << elem << " -> ";
+//        }
+//        std::cout << ".\n";
+    
+    
 }
 
 AdjacencyList::AdjacencyList(int *tab, int size_of_tab, int _size){
@@ -142,13 +143,13 @@ AdjacencyList::~AdjacencyList()
 }
 
 void AdjacencyList::print_list(){
-    for (int i = 0; i < size; i++) {
-        std::cout << i << " -> ";
-        for (auto elem : lists[i]) {
-            std::cout << elem << " -> ";
-        }
-        std::cout << ".\n";
+    for(int i = 0;i<size;i++){
+        std::cout<< i <<" -> ";
+        for(auto j = nextOnTheList(i);j!=lastOnTheList(i);j=nextOnTheList(i))
+            std::cout<<getv(j)<<" -> ";
+        std::cout<<".\n";
     }
+    std::cout<<"\n";
 
 }
 
@@ -237,21 +238,16 @@ void AdjacencyList::sortBFS()
 }
 
 
+
 void AdjacencyList::Euler(int v){
-    temp_euler.push(v);
     int j;
-//    print_list();
-//    std::cout<<std::endl;
-    for(auto i = firstOnTheList(v);i != lastOnTheList(v);i=nextOnTheList(v)){
+    for(auto i = nextOnTheList(v);i != lastOnTheList(v);i = nextOnTheList(v)){
         j = getv(i);
-        //
         lists[j].remove(v);
         lists[v].remove(j);
         Euler(j);
     }
-    sol_euler.push_back(v);
-    printf("%d ",v);
-    temp_euler.pop();
+    std::cout<<v<<" ";
 }
 
 std::list<int>::iterator AdjacencyList::firstOnTheList(int whichList)
@@ -277,7 +273,7 @@ std::list<int>::iterator AdjacencyList::nextOnTheList(int whichList) {
     if (pointers[whichList] != lists[whichList].end())
         return pointers[whichList]++;
     pointers[whichList] = lists[whichList].begin();
-    pointers[whichList]++;
+//    pointers[whichList]++;
     return lists[whichList].end();
 }
 

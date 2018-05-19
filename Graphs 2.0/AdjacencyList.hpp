@@ -32,7 +32,6 @@ private:
     std::list<int> *lists;
     int size;
     
-    
     std::stack<int> temp_euler;
     std::list<int> sol_euler;
     
@@ -63,7 +62,6 @@ public:
     
     void print_list();
     
-    void Hamilton();
     void Euler(int v);
     
     
@@ -77,7 +75,6 @@ public:
     }
     
     void Hamilton(int i);
-    void Euler();
     
     
     int type;
