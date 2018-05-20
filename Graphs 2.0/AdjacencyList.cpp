@@ -237,19 +237,6 @@ void AdjacencyList::sortBFS()
     delete sorted;
 }
 
-
-
-void AdjacencyList::Euler(int v){
-    int j;
-    for(auto i = nextOnTheList(v);i != lastOnTheList(v);i = nextOnTheList(v)){
-        j = getv(i);
-        lists[j].remove(v);
-        lists[v].remove(j);
-        Euler(j);
-    }
-    std::cout<<v<<" ";
-}
-
 std::list<int>::iterator AdjacencyList::firstOnTheList(int whichList)
 {
     return lists[whichList].begin();
@@ -277,12 +264,75 @@ std::list<int>::iterator AdjacencyList::nextOnTheList(int whichList) {
     return lists[whichList].end();
 }
 
+bool AdjacencyList::connected(int a, int b)
+{
+	if (a >= size || b >= size) {
+		return false;
+	}
 
-void AdjacencyList::Hamilton(int i){
-    static int* visited = new int[size];
-    visited[i];
-    for(auto succesor : lists[i])
-        
-        return;
+	for (auto succesor : lists[a]) {
+		if (succesor == b)
+			return true;
+	}
+
+	return false;
 }
 
+void AdjacencyList::Hamilton(int i) {
+	//initialisation
+	static int idx = 0;
+	static bool firstExecution = true;
+	static bool completed = false;
+	static int* sol = new int[size];
+	static int* visited = new int[size];
+	if (firstExecution) {
+		firstExecution = false;
+		for (int k = 0; k < size; k++) {
+			sol[k] = 0;
+		}
+		for (int k = 0; k < size; k++) {
+			visited[k] = 0;
+		}
+	}
+
+	//actual function
+	if (completed) {
+		for (int k = 0; k < size; k++) {
+			std::cout << sol[k];
+		}
+		return;
+	}
+
+	visited[i] = 1;
+	sol[idx++] = i;
+	if (idx == size) {
+		if (connected(i, sol[0])) {
+			std::cout << "\nSUCCES HAMILTON FOUND:\n";	
+		}
+		else {
+			std::cout << "\nTHAT'S NOT HAMILTON:\n";
+		}
+		for (int k = 0; k < size; k++) {
+			std::cout << sol[k];
+		}
+	}
+	for (auto succesor : lists[i]) {
+		if (!visited[succesor]) {
+			Hamilton(succesor);
+		}
+	}
+	visited[i] = 0;
+	idx--;
+	return;
+}
+
+void AdjacencyList::Euler(int v) {
+	auto i = lists[v].begin();
+	while (lists[v].size() != 0) {
+		int suc = getv(lists[v].begin());//succesor
+		lists[suc].remove(v);
+		lists[v].remove(suc);
+		Euler(suc);
+	}	
+	std::cout<< v << "\t";
+}

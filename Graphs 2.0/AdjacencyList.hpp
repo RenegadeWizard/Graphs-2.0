@@ -62,19 +62,20 @@ public:
     
     void print_list();
     
-    void Euler(int v);
-    
-    
     std::list<int>::iterator firstOnTheList(int whichList);
     std::list<int>::iterator lastOnTheList(int whichList);
     
     std::list<int>::iterator nextOnTheList(int whichList);
+
+	bool connected(int a, int b);
     
     int getv(std::list<int>::iterator p) {
         return *&*p;
     }
     
     void Hamilton(int i);
+
+	void Euler(int v);
     
     
     int type;

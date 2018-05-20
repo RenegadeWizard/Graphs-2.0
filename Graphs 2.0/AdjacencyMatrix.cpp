@@ -6,4 +6,4 @@
 //  Copyright © 2018 Krzysztof Sychla. All rights reserved.
 //
 
-#include "AdjacencyMatrix.hpp"
+//#include "AdjacencyMatrix.hpp"
