@@ -66,16 +66,16 @@ public:
     std::list<int>::iterator lastOnTheList(int whichList);
     
     std::list<int>::iterator nextOnTheList(int whichList);
-
-	bool connected(int a, int b);
+    
+    bool connected(int a, int b);
     
     int getv(std::list<int>::iterator p) {
         return *&*p;
     }
     
-    void Hamilton(int i);
-
-	void Euler(int v);
+    void Hamilton(int i,bool boo);
+    
+    void Euler(int v);
     
     
     int type;

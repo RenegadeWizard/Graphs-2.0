@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include "AdjacencyList.hpp"
+#include "Timer.hpp"
 
 void usage(int argc, int ile){
     if(argc < ile){
@@ -19,70 +20,67 @@ void usage(int argc, int ile){
 
 
 int main(int argc, const char * argv[]) {
-    usage(argc,4);
+    usage(argc,6);
     
     int number = atoi(argv[1]);
-//    std::fstream dane;
-//    std::fstream wynik;
-//    dane.open(argv[2],std::ios_base::in);
-//    wynik.open(argv[3],std::ios_base::app);
+    std::fstream dane;
+    std::fstream wynik;
+    dane.open(argv[2],std::ios_base::in);
+    wynik.open(argv[3],std::ios_base::app);
     
-    int tab[] = {0,1,2,3,4,5,6,0,1,3,6,1,4,0,2,4};
+    int size = atoi(argv[4]);
+    int size_of_graph = atoi(argv[5]);
     
-//    int **tab = new int*[7];
+    int *tab = new int [size];
+    
+    for(int i=0;i<size;i++)
+        dane >> tab[i];
+    
+//    for(int i=0;i<77;i++)
+//        std::cout<<tab[i]<<" ";
+//    std::cout<<"\n";
+    
+//    int tab[] = {0,1,2,3,4,5,6,0,1,6,4,1,1,3,5,1};
+//    int size = sizeof(tab)/sizeof(*tab);
 //
-//    int arr[7][7] = {
-//        0,1,1,0,1,0,1,
-//        1,0,1,1,0,0,1,
-//        1,1,0,1,1,0,0,
-//        0,1,1,0,1,0,1,
-//        1,0,1,1,0,1,0,
-//        0,0,0,0,1,0,1,
-//        1,1,0,1,0,1,0
-//    };
-//
-//    for(int i = 0;i<7;i++)
-//        tab[i] = new int[7];
-//    for(int i=0;i<7;i++)
-//        for(int j=0;j<7;j++)
-//            tab[i][j] = arr[i][j];
+//    AdjacencyList *lista = new AdjacencyList(tab,size,7);
+//    lista->Hamilton(0, true);
+//    delete lista;
+//    std::cout<<"\n";
+    AdjacencyList lista(tab,size,size_of_graph);
+//    lista2->Euler(0);
+//    delete lista2;
+//    std::cout<<"\n";
     
-    
-    
-    int size_of_tab = sizeof(tab)/sizeof(*tab);
-    
-    AdjacencyList lista(tab,size_of_tab,7);
-    
-//    std::cout<<"lista[0]: "<<lista.getv(lista.nextOnTheList(0))<<"\n";
-//    lista.print_list();
-//    lista.firstOnTheList(0);
-//    lista.print_list();
-//    lista.lastOnTheList(0);
-//    lista.print_list();
-//    lista.nextOnTheList(0);
-//    lista.print_list();
+    Timer time;
     
     switch(number){
         case 0:
-            std::cout<<"Euler\n";
+            time.StartTimer();
             lista.Euler(0);
-            std::cout<<"\n";
+            time.EndTimer();
+            wynik<<"\t"<<time.GetDelta();
             break;
         case 1:
-            std::cout<<"Hamilton\n";
-            lista.Hamilton(0);
-            std::cout<<"\n";
+            time.StartTimer();
+            lista.Hamilton(0,true);
+            time.EndTimer();
+            wynik<<"\t"<<time.GetDelta();
             break;
         case 2:
-            std::cout<<"Part B\n";
+            time.StartTimer();
+            lista.Hamilton(0, false);
+            time.EndTimer();
+            wynik<<"\t"<<time.GetDelta();
             break;
         default:
             std::cout<<"WRONG OPTION!!\n";
             break;
     }
     
-    
-//    lista.Euler(0);
-//    std::cout<<"\n";
+    delete [] tab;
+    dane.close();
+    wynik.close();
+
     return 0;
 }

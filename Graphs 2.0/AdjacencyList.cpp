@@ -58,12 +58,12 @@ void AdjacencyList::inicjalize(int **tab, int _size, int which)
         }
     }
     
-//    for (int i = 0; i < size; i++) {
-//        std::cout << i << " -> ";
-//        for (auto elem : lists[i]) {
-//            std::cout << elem << " -> ";
-//        }
-//        std::cout << ".\n";
+    //    for (int i = 0; i < size; i++) {
+    //        std::cout << i << " -> ";
+    //        for (auto elem : lists[i]) {
+    //            std::cout << elem << " -> ";
+    //        }
+    //        std::cout << ".\n";
     
     
 }
@@ -93,13 +93,13 @@ AdjacencyList::AdjacencyList(int *tab, int size_of_tab, int _size){
         last = tab[i];
     }
     
-//    for (int i = 0; i < size; i++) {
-//        std::cout << i + 1 << " -> ";
-//        for (auto elem : lists[i]) {
-//            std::cout << elem + 1<< " -> ";
-//        }
-//        std::cout << ".\n";
-//    }
+    //    for (int i = 0; i < size; i++) {
+    //        std::cout << i + 1 << " -> ";
+    //        for (auto elem : lists[i]) {
+    //            std::cout << elem + 1<< " -> ";
+    //        }
+    //        std::cout << ".\n";
+    //    }
     
 }
 
@@ -150,7 +150,7 @@ void AdjacencyList::print_list(){
         std::cout<<".\n";
     }
     std::cout<<"\n";
-
+    
 }
 
 void AdjacencyList::DFS(int i, int &idx)
@@ -260,79 +260,82 @@ std::list<int>::iterator AdjacencyList::nextOnTheList(int whichList) {
     if (pointers[whichList] != lists[whichList].end())
         return pointers[whichList]++;
     pointers[whichList] = lists[whichList].begin();
-//    pointers[whichList]++;
+    //    pointers[whichList]++;
     return lists[whichList].end();
 }
 
 bool AdjacencyList::connected(int a, int b)
 {
-	if (a >= size || b >= size) {
-		return false;
-	}
-
-	for (auto succesor : lists[a]) {
-		if (succesor == b)
-			return true;
-	}
-
-	return false;
+    if (a >= size || b >= size) {
+        return false;
+    }
+    
+    for (auto succesor : lists[a]) {
+        if (succesor == b)
+            return true;
+    }
+    
+    return false;
 }
 
-void AdjacencyList::Hamilton(int i) {
-	//initialisation
-	static int idx = 0;
-	static bool firstExecution = true;
-	static bool completed = false;
-	static int* sol = new int[size];
-	static int* visited = new int[size];
-	if (firstExecution) {
-		firstExecution = false;
-		for (int k = 0; k < size; k++) {
-			sol[k] = 0;
-		}
-		for (int k = 0; k < size; k++) {
-			visited[k] = 0;
-		}
-	}
-
-	//actual function
-	if (completed) {
-		for (int k = 0; k < size; k++) {
-			std::cout << sol[k];
-		}
-		return;
-	}
-
-	visited[i] = 1;
-	sol[idx++] = i;
-	if (idx == size) {
-		if (connected(i, sol[0])) {
-			std::cout << "\nSUCCES HAMILTON FOUND:\n";	
-		}
-		else {
-			std::cout << "\nTHAT'S NOT HAMILTON:\n";
-		}
-		for (int k = 0; k < size; k++) {
-			std::cout << sol[k];
-		}
-	}
-	for (auto succesor : lists[i]) {
-		if (!visited[succesor]) {
-			Hamilton(succesor);
-		}
-	}
-	visited[i] = 0;
-	idx--;
-	return;
+void AdjacencyList::Hamilton(int i,bool boo) {
+    //initialisation
+    static int idx = 0;
+    static bool firstExecution = true;
+    static bool completed = false;
+    static int* sol = new int[size];
+    static int* visited = new int[size];
+    if (firstExecution) {
+        firstExecution = false;
+        for (int k = 0; k < size; k++) {
+            sol[k] = 0;
+        }
+        for (int k = 0; k < size; k++) {
+            visited[k] = 0;
+        }
+    }
+    
+    //actual function
+    if (completed) {
+        for (int k = 0; k < size; k++) {
+            std::cout << sol[k] << " ";
+        }
+        return;
+    }
+    
+    visited[i] = 1;
+    sol[idx++] = i;
+    if (idx == size) {
+        if (connected(i, sol[0])) {
+//            std::cout << "\nSUCCES HAMILTON FOUND:\n";
+            completed = boo;
+        }
+        else {
+//            std::cout << "\nTHAT'S NOT HAMILTON:\n";
+        }
+        for (int k = 0; k < size; k++) {
+            std::cout << sol[k] << " ";
+        }
+    }
+    for (auto succesor : lists[i]) {
+        if (!visited[succesor]) {
+            Hamilton(succesor,boo);
+        }
+        if(completed)
+            return;
+    }
+    visited[i] = 0;
+    idx--;
+    return;
 }
 
 void AdjacencyList::Euler(int v) {
-	auto i = lists[v].begin();
-	while (lists[v].size() != 0) {
-		int suc = getv(lists[v].begin());//succesor
-		lists[suc].remove(v);
-		lists[v].remove(suc);
-		Euler(suc);
-	}	
-	std::cout<< v << "\t";
+    auto i = lists[v].begin();
+    while (lists[v].size() != 0) {
+        int suc = getv(lists[v].begin());//succesor
+        lists[suc].remove(v);
+        lists[v].remove(suc);
+        Euler(suc);
+    }
+    std::cout<< v << " ";
 }

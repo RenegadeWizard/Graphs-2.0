@@ -1,36 +1,27 @@
-//
-//  main.cpp
-//  Graphs 2.0
-//
-//  Created by Krzysztof Sychla on 17.05.2018.
-//  Copyright © 2018 Krzysztof Sychla. All rights reserved.
-//
-
 #include <iostream>
-#include <fstream>
 #include <conio.h>
-#include "../Graphs 2.0/AdjacencyList.hpp"
 
-void usage(int argc, int ile) {
-	if (argc < ile) {
-		std::cout << "Not enough parameters, exiting!\n";
-		exit(0);
-	}
+#include "../Graphs 2.0/AdjacencyList.hpp"
+#include "../Graphs 2.0/AdjacencyMatrix.hpp"
+
+
+int getv(std::list<int>::iterator p) {
+	return *&*p;
 }
 
+int main() {
+	int n_tab[] = {1,0,0,1,1,0,1,0,0,0,1,0,1,0,1};
 
-int main(int argc, const char * argv[]) {
+	AdjacencyMatrix *macierz = new AdjacencyMatrix(6);
+	macierz->fill(n_tab);
+	AdjacencyList *lista = new AdjacencyList(macierz,0);
 	
+	for (auto i = lista->nextOnTheList(0); i != lista->lastOnTheList(0); i = lista->nextOnTheList(0)) {
+		std::cout << getv( i );
+	}
 
-	int tab[] = { 0,1,2,3,4,5,6,0,1,3,6,1,4,0,2,4 };
-
-	int size_of_tab = sizeof(tab) / sizeof(*tab);
-
-	AdjacencyList lista(tab, size_of_tab, 7);
-
-	lista.print_list();
-
-	lista.Euler(0);
+	
+	delete lista;
+	delete macierz;
 	_getch();
-	return 0;
 }
