@@ -13,11 +13,11 @@
 
 void usage(int argc, int ile){
     if(argc < ile){
-        std::cout<<"Not enough parameters, exiting!\n";
+        std::cout << "Not enough parameters, exiting!\n";
+        std::cout << "Usage: ./main [number] [input file] [output file] [size] [size of graph]\n";
         exit(0);
     }
 }
-
 
 int main(int argc, const char * argv[]) {
     usage(argc,6);
@@ -36,21 +36,7 @@ int main(int argc, const char * argv[]) {
     for(int i=0;i<size;i++)
         dane >> tab[i];
     
-//    for(int i=0;i<77;i++)
-//        std::cout<<tab[i]<<" ";
-//    std::cout<<"\n";
-    
-//    int tab[] = {0,1,2,3,4,5,6,0,1,6,4,1,1,3,5,1};
-//    int size = sizeof(tab)/sizeof(*tab);
-//
-//    AdjacencyList *lista = new AdjacencyList(tab,size,7);
-//    lista->Hamilton(0, true);
-//    delete lista;
-//    std::cout<<"\n";
     AdjacencyList lista(tab,size,size_of_graph);
-//    lista2->Euler(0);
-//    delete lista2;
-//    std::cout<<"\n";
     
     Timer time;
     

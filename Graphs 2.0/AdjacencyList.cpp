@@ -20,27 +20,15 @@
 
 #include"AdjacencyList.hpp"
 
-//AdjacencyList::AdjacencyList(AdjacencyMatrix source, int which)
-//{
-//    inicjalize(source.tab, source.n, which);
-//}
-//
-//AdjacencyList::AdjacencyList(AdjacencyMatrix *source, int which)
-//{
-//    inicjalize(source->tab, source->n, which);
-//}
-//AdjacencyList::AdjacencyList(AdjacencyMatrix *source, int which)
-//{
-//    inicjalize(source->tab, source->n, which);
-//}
 
-AdjacencyList::AdjacencyList(int **tab, int _size, int which)
-{
-    inicjalize(tab, _size, which);
+AdjacencyList::AdjacencyList(int **tab, int _size, int which) {
+    initialize(tab, _size, which);
 }
 
-void AdjacencyList::inicjalize(int **tab, int _size, int which)
-{
+/*
+ Initializing everything, lists, etc.
+*/
+void AdjacencyList::initialize(int **tab, int _size, int which) {
     size = _size;
     type = which;
     
@@ -57,18 +45,10 @@ void AdjacencyList::inicjalize(int **tab, int _size, int which)
             }
         }
     }
-    
-    //    for (int i = 0; i < size; i++) {
-    //        std::cout << i << " -> ";
-    //        for (auto elem : lists[i]) {
-    //            std::cout << elem << " -> ";
-    //        }
-    //        std::cout << ".\n";
-    
-    
 }
 
-AdjacencyList::AdjacencyList(int *tab, int size_of_tab, int _size){
+
+AdjacencyList::AdjacencyList(int *tab, int size_of_tab, int _size) {
     size = _size;
     type = 0;
     lists = new std::list<int>[size];
@@ -92,19 +72,10 @@ AdjacencyList::AdjacencyList(int *tab, int size_of_tab, int _size){
         
         last = tab[i];
     }
-    
-    //    for (int i = 0; i < size; i++) {
-    //        std::cout << i + 1 << " -> ";
-    //        for (auto elem : lists[i]) {
-    //            std::cout << elem + 1<< " -> ";
-    //        }
-    //        std::cout << ".\n";
-    //    }
-    
 }
 
-AdjacencyList::AdjacencyList(int tab[6][6], int _size, int which)
-{
+
+AdjacencyList::AdjacencyList(int tab[6][6], int _size, int which) {
     size = _size;
     type = which;
     
@@ -132,14 +103,14 @@ AdjacencyList::AdjacencyList(int tab[6][6], int _size, int which)
 }
 
 
-AdjacencyList::~AdjacencyList()
-{
+AdjacencyList::~AdjacencyList() {
     for (int i = size; --i > 0;) {
         for (int j = 0; j < size; j++) {
             lists[i].clear();
         }
     }
     //delete lists;
+    delete lists;
 }
 
 void AdjacencyList::print_list(){
@@ -153,8 +124,7 @@ void AdjacencyList::print_list(){
     
 }
 
-void AdjacencyList::DFS(int i, int &idx)
-{
+void AdjacencyList::DFS(int i, int &idx) {
     if (visited == NULL)
         return;
     visited[i] = 1;
@@ -165,8 +135,7 @@ void AdjacencyList::DFS(int i, int &idx)
     sorted[--idx] = i;
 }
 
-void AdjacencyList::sortDFS()
-{
+void AdjacencyList::sortDFS() {
     if (type != NEXT) {
         std::cout << "  Tip:\tTo sort the graph use type = NEXT\n";
         return;
@@ -192,8 +161,7 @@ void AdjacencyList::sortDFS()
 }
 
 
-void AdjacencyList::sortBFS()
-{
+void AdjacencyList::sortBFS() {
     //check for error
     if (type != NEXT) {
         std::cout << "  Tip:\tTo sort the graph use type = NEXT\n";
@@ -237,13 +205,11 @@ void AdjacencyList::sortBFS()
     delete sorted;
 }
 
-std::list<int>::iterator AdjacencyList::firstOnTheList(int whichList)
-{
+std::list<int>::iterator AdjacencyList::firstOnTheList(int whichList) {
     return lists[whichList].begin();
 }
 
-std::list<int>::iterator AdjacencyList::lastOnTheList(int whichList)
-{
+std::list<int>::iterator AdjacencyList::lastOnTheList(int whichList) {
     return lists[whichList].end();
 }
 
@@ -260,12 +226,10 @@ std::list<int>::iterator AdjacencyList::nextOnTheList(int whichList) {
     if (pointers[whichList] != lists[whichList].end())
         return pointers[whichList]++;
     pointers[whichList] = lists[whichList].begin();
-    //    pointers[whichList]++;
     return lists[whichList].end();
 }
 
-bool AdjacencyList::connected(int a, int b)
-{
+bool AdjacencyList::connected(int a, int b) {
     if (a >= size || b >= size) {
         return false;
     }
@@ -307,11 +271,9 @@ void AdjacencyList::Hamilton(int i,bool boo) {
     sol[idx++] = i;
     if (idx == size) {
         if (connected(i, sol[0])) {
-//            std::cout << "\nSUCCES HAMILTON FOUND:\n";
             completed = boo;
         }
         else {
-//            std::cout << "\nTHAT'S NOT HAMILTON:\n";
         }
         for (int k = 0; k < size; k++) {
             std::cout << sol[k] << " ";
@@ -330,7 +292,6 @@ void AdjacencyList::Hamilton(int i,bool boo) {
 }
 
 void AdjacencyList::Euler(int v) {
-    auto i = lists[v].begin();
     while (lists[v].size() != 0) {
         int suc = getv(lists[v].begin());//succesor
         lists[suc].remove(v);

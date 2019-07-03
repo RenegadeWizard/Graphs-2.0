@@ -2,7 +2,7 @@
  AdjacencyList.hpp
  Graphs
  
- Copyright � 2018  Dominik Witczak
+ Copyright � 2018  Dominik Witczak & Krzysztof Sychla
  
  This program is free software : you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@
 #include <iostream>
 #include <list>
 #include <stack>
-//#include "AdjacencyMatrix.hpp"
 
 
 class AdjacencyList {
@@ -35,21 +34,14 @@ private:
     std::stack<int> temp_euler;
     std::list<int> sol_euler;
     
-    
     int *visited;
     int *predecessors;
-    
     int *sorted;
+    
 protected:
 public:
-    //    AdjacencyList(AdjacencyMatrix source, int which);
-    
-    //    AdjacencyList(AdjacencyMatrix * source, int which);
-    
-    //    AdjacencyList(AdjacencyMatrix * source, int which);
-    
     AdjacencyList(int **tab, int _size, int which);
-    void inicjalize(int ** tab, int _size, int which);
+    void initialize(int ** tab, int _size, int which);
     AdjacencyList(int tab[6][6], int _size, int which);
     AdjacencyList(int *tab, int size_of_tab, int _size);
     ~AdjacencyList();
@@ -64,19 +56,13 @@ public:
     
     std::list<int>::iterator firstOnTheList(int whichList);
     std::list<int>::iterator lastOnTheList(int whichList);
-    
     std::list<int>::iterator nextOnTheList(int whichList);
     
     bool connected(int a, int b);
-    
-    int getv(std::list<int>::iterator p) {
-        return *&*p;
-    }
+    int getv(std::list<int>::iterator p) { return *&*p; }
     
     void Hamilton(int i,bool boo);
-    
     void Euler(int v);
-    
     
     int type;
     enum {

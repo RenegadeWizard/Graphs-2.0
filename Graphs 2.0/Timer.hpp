@@ -4,28 +4,22 @@
 
 using namespace std::chrono;
 
-class Timer
-{
+class Timer {
 public:
     
-    void StartTimer()
-    {
+    void StartTimer() {
         start = high_resolution_clock::now();
     }
     
     
-    void EndTimer()
-    {
+    void EndTimer() {
         end = high_resolution_clock::now();
     }
     
     
-    long long GetDelta()
-    {
+    long long GetDelta() {
         long delta = (long)duration_cast<microseconds>(end - start).count();
-        
         return delta;
-        //outcome << "Algorithm took " << delta << " us\n";
     }
     
     high_resolution_clock::time_point start;
